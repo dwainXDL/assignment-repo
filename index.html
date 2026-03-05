@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartoon Character Dropdown Menu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .selector-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: #333;
+    }
+
+    select {
+      padding: 10px 16px;
+      font-size: 1rem;
+      border: 2px solid #d0d0d0;
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    select:focus {
+      border-color: #5a7eff;
+    }
+
+    .image-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      min-width: 200px;
+    }
+
+    .image-section img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 2px solid #eee;
+      background: #fafafa;
+      display: none;
+    }
+
+    .image-section img.visible {
+      display: block;
+    }
+
+    .placeholder {
+      width: 200px;
+      height: 200px;
+      border: 2px dashed #ccc;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .character-name {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="selector-section">
+      <h1>Pick a character</h1>
+      <select id="characterSelect" onchange="showCharacter()">
+        <option value="">Select a character</option>
+        <option value="bugs_bunny">Bugs Bunny</option>
+        <option value="tom">Tom (Tom &amp; Jerry)</option>
+        <option value="jerry">Jerry (Tom &amp; Jerry)</option>
+        <option value="scooby_doo">Scooby-Doo</option>
+        <option value="fred_flintstone">Fred Flintstone</option>
+        <option value="daffy_duck">Daffy Duck</option>
+      </select>
+    </div>
+
+    <div class="image-section" id="imageSection">
+      <div class="placeholder" id="placeholder">Select a character to see them here</div>
+      <img id="characterImage" src="" alt="" />
+      <span class="character-name" id="characterName"></span>
+    </div>
+  </div>
+
+  <script>
+    const characters = {
+      bugs_bunny: {
+        name: "Bugs Bunny",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPe4Mk03kxBhuHACx4YkJPMkRMxsK5BlbRqg&s"
+      },
+      tom: {
+        name: "Tom",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzhu4SBGYOgqjLYyCVtYc7YiTvdzQvqO4Arg&s"
+      },
+      jerry: {
+        name: "Jerry",
+        url: "https://upload.wikimedia.org/wikipedia/en/2/2f/Jerry_Mouse.png"
+      },
+      scooby_doo: {
+        name: "Scooby-Doo",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTBiIMSDnJOVuxpF6xFqf2FihIGHjjSxmPcg&s"
+      },
+      fred_flintstone: {
+        name: "Fred Flintstone",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3mMS2EkfbW64BYBGV0cH4TLs79BPRwC9iiw&s"
+      },
+      daffy_duck: {
+        name: "Daffy Duck",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1tlq9tMnmp_DhqgZemDBGXP5_aNF6zVPxwg&s"
+      }
+    };
+
+    function showCharacter() {
+      const select = document.getElementById('characterSelect');
+      const img = document.getElementById('characterImage');
+      const name = document.getElementById('characterName');
+      const placeholder = document.getElementById('placeholder');
+      const key = select.value;
+
+      if (!key) {
+        img.classList.remove('visible');
+        placeholder.style.display = 'flex';
+        name.textContent = '';
+        return;
+      }
+
+      const character = characters[key];
+      img.src = character.url;
+      img.alt = character.name;
+      img.classList.add('visible');
+      placeholder.style.display = 'none';
+      name.textContent = character.name;
+    }
+  </script>
+</body>
+</html>
